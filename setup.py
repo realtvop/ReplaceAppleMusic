@@ -22,7 +22,6 @@ setup(
     url="https://github.com/realtvop/ReplaceAppleMusic",
     classifiers=[
         "Programming Language :: Python :: 3",
-        "License :: OSI Approved :: MIT License",
         "Operating System :: MacOS",
     ],
     python_requires=">=3.6",
