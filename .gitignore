@@ -2,3 +2,4 @@ venv
 # Fuck macOS
 .DS_Store
 __pycache__
+tmp
