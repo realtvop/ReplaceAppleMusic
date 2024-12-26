@@ -34,11 +34,8 @@ pip install -r requirements.txt
 
 ```bash
 # Replace a song
-ramusic replace "Song Name" "Artist Name" "Album Name" "/path/to/new/file.mp3"
+ramusic /path/to/new/file.m4a
 
-# Replace a song without specifying album
-ramusic replace "Song Name" "Artist Name" "" "/path/to/new/file.mp3"
-
-# Replace a song with only the title
-ramusic replace "Song Name" "" "" "/path/to/new/file.mp3"
+# Replace songs in a folder
+ramusic /path/to/folder
 ```
