@@ -7,10 +7,11 @@ def print_help():
     sys.exit(0)
 
 def process_folder(folder_path):
-    songsMeta = get_songs_in_folder(folder_path)
-    for songMeta in songsMeta:
-        song = bridge.get_song_info(songMeta.title, songMeta.artist, songMeta.album)
-        print(f"Song info: {song}")
+    songs = get_songs_in_folder(folder_path)
+    for song in songs:
+        track = bridge.get_song_info(song.meta.title, song.meta.artist, song.meta.album)
+        print(f"Song info: {track}")
+        bridge.replace_song(song, track)
 
 def main():
     if len(sys.argv) == 2 and sys.argv[1] in ['-h', '--help']: print_help()

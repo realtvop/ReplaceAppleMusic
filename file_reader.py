@@ -6,7 +6,7 @@ def read_m4a_metadata(file_path):
     try:
         audio = MP4(file_path)
         return SimpleNamespace(
-            title=audio.get('\xa9nam', [None])[0],
+            title=audio.get('\xa9nam', [os.path.splitext(os.path.basename(file_path))[0]])[0],
             artist=audio.get('\xa9ART', [None])[0],
             album=audio.get('\xa9alb', [None])[0],
         )
@@ -23,7 +23,10 @@ def process_file(file_path):
     metadata = read_m4a_metadata(file_path)
     print(f"\nProcessing: {file_path}")
     print(f"Metadata: {metadata}")
-    return metadata
+    return SimpleNamespace(
+        meta=metadata,
+        path=file_path,
+    )
 
 def get_songs_in_folder(folder_path):
     for file_path in process_folder(folder_path):

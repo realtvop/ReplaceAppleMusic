@@ -1,15 +1,21 @@
 from appscript import app as attach, its
 from types import SimpleNamespace
+import subprocess
 
 app = attach('Music')
+
 playlists = app.playlists()
 
 def get_song_info(track_name, artist, album):
     try:
-        track = app.library_playlists[1].tracks[its.name == track_name and its.artist == artist and its.album == album].first()
+        conditions = its.name == track_name
+        if artist: conditions = conditions and its.artist == artist
+        if album: conditions = conditions and its.album == album
+        track = app.library_playlists[1].tracks[conditions].first()
         
         play_count = track.played_count()
         date_added = track.date_added()
+        favorite = track.favorited()
 
         containing_playlists = []
 
@@ -20,9 +26,20 @@ def get_song_info(track_name, artist, album):
         return SimpleNamespace(
             track=track,
             play_count=play_count,
-            # date_added=date_added,
+            date_added=date_added,
+            favorite=favorite,
             containing_playlists=containing_playlists,
         )
 
     except Exception as e:
         print(f"Error finding track: {e}")
+
+def replace_song(file, track):
+    try:
+        newer = app.add(file.path)
+        newer.played_count.set(track.play_count)
+        newer.favorited.set(track.favorite)
+        for playlist in track.containing_playlists:
+            newer.duplicate(to=playlist.end())
+    except Exception as e:
+        print(f"Error replacing song: {e}")
