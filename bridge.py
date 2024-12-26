@@ -13,6 +13,7 @@ def get_song_info(track_name, artist, album):
         if album: conditions = conditions and its.album == album
         track = app.library_playlists[1].tracks[conditions].first()
         
+        id = track.id()
         play_count = track.played_count()
         date_added = track.date_added()
         favorite = track.favorited()
@@ -25,6 +26,7 @@ def get_song_info(track_name, artist, album):
 
         return SimpleNamespace(
             track=track,
+            id=id,
             play_count=play_count,
             date_added=date_added,
             favorite=favorite,
@@ -37,10 +39,12 @@ def get_song_info(track_name, artist, album):
 def replace_song(file, track):
     try:
         newer = app.add(file.path)
-        newer.played_count.set(track.play_count)
-        newer.favorited.set(track.favorite)
-        for playlist in track.containing_playlists:
-            newer.duplicate(to=playlist.end())
-        track.track.delete()
+        if track:
+            if newer.id() == track.id: return
+            newer.played_count.set(track.play_count)
+            newer.favorited.set(track.favorite)
+            for playlist in track.containing_playlists:
+                newer.duplicate(to=playlist.end())
+            track.track.delete()
     except Exception as e:
         print(f"Error replacing song: {e}")
