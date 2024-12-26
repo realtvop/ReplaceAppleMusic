@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="replaceapplemusic",
-    version="0.0.1",
+    version="0.0.2",
     py_modules=["main", "bridge", "file_reader"],
     packages=find_packages(),
     install_requires=[
