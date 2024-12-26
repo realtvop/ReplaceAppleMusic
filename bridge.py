@@ -41,5 +41,6 @@ def replace_song(file, track):
         newer.favorited.set(track.favorite)
         for playlist in track.containing_playlists:
             newer.duplicate(to=playlist.end())
+        track.track.delete()
     except Exception as e:
         print(f"Error replacing song: {e}")
