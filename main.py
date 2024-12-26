@@ -1,7 +1,8 @@
 import bridge, sys, os, file_reader
 
 def print_help():
-    print(f"Usage: {sys.argv[0]} [path]")
+    print("ReplaceAppleMusic")
+    print(f"Usage: ramusic [path]")
     print("path can be either a folder or a file")
     sys.exit(0)
 
