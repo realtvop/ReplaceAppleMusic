@@ -17,6 +17,7 @@ def get_song_info(track_name, artist, album):
         play_count = track.played_count()
         date_added = track.date_added()
         favorite = track.favorited()
+        location = track.location().path
 
         containing_playlists = []
 
@@ -30,6 +31,7 @@ def get_song_info(track_name, artist, album):
             play_count=play_count,
             date_added=date_added,
             favorite=favorite,
+            location=location,
             containing_playlists=containing_playlists,
         )
 
@@ -38,13 +40,13 @@ def get_song_info(track_name, artist, album):
 
 def replace_song(file, track):
     try:
+        if track: track.track.delete()
         newer = app.add(file.path)
         if track:
-            if newer.id() == track.id: return
+            # if newer.location().path == track.location: return
             newer.played_count.set(track.play_count)
             newer.favorited.set(track.favorite)
             for playlist in track.containing_playlists:
                 newer.duplicate(to=playlist.end())
-            track.track.delete()
     except Exception as e:
         print(f"Error replacing song: {e}")

@@ -10,7 +10,7 @@ def process_folder(folder_path, folder=True):
     songs = file_reader.get_songs_in_folder(os.path.abspath(folder_path)) if folder else [ file_reader.process_file(os.path.abspath(folder_path)) ]
     for song in songs:
         track = bridge.get_song_info(song.meta.title, song.meta.artist, song.meta.album)
-        print(f"Song info: {track}")
+        # print(f"Song info: {track}")
         bridge.replace_song(song, track)
 
 def main():

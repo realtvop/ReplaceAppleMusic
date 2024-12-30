@@ -22,7 +22,7 @@ def process_folder(folder_path):
 def process_file(file_path):
     metadata = read_m4a_metadata(file_path)
     print(f"\nProcessing: {file_path}")
-    print(f"Metadata: {metadata}")
+    # print(f"Metadata: {metadata}")
     return SimpleNamespace(
         meta=metadata,
         path=file_path,
